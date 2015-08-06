@@ -3,7 +3,7 @@ public class Test {//time O(n*log(n)), space O(1)
     for (int i = 0; i < nums.length; i++) {
       int j = bSearch(nums, target - nums[i], i + 1);
       if (j != -1) {
-        return new int[] = {j + 1, i + 1};//or i+1, j+1
+        return new int[] {j + 1, i + 1};//or i+1, j+1
       }
       else {
         return null;//or throw Exception here

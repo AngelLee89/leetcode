@@ -11,7 +11,7 @@ public class Test {//time O(n), space O(1)
         i++;
       }
       else {
-        return new int[] = {i + 1, j + 1};
+        return new int[] {i + 1, j + 1};
       }
     }
   }
