@@ -1,0 +1,43 @@
+public class Solution {//O(n) & O(n)
+    public String reverseWords(String s) {
+        StringBuilder reverse = new StringBuilder();
+        int j = s.length();//one-off, the right ptr
+        
+        for (int i = s.length() - 1; i >= 0; i--) {//the left ptr
+            if (s.charAt(i) == ' ') {
+                j = i;
+            }
+            else if (i == 0 || s.charAt(i-1) == ' '){//1st or mid char
+                if (reverse.length() != 0) {//already has word
+                    reverse.append(' ');
+                }
+                
+                reverse.append(s.substring(i, j));
+            }
+        }
+        
+        return reverse.toString();
+
+        /*
+        if (s == null || s.length() == 0) {//input case: ""
+            return "";
+        }
+        
+        String[] arr = s.split(" ");
+
+        if (arr.length == 0) {//input case: " "
+            return "";
+        }
+        
+        StringBuilder res = new StringBuilder();//String is immutable
+        
+        for (int i = arr.length-1; i >= 0; i--) {
+            if (!arr[i].equals("")) { //!! " 1"
+                res.append(arr[i] + " ");
+            }
+        }
+        
+        return res.substring(0, res.length() - 1);
+        */
+    }
+}
