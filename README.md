@@ -1,2 +1,2 @@
 # leetcode
-The best solutions, ever!
+The best leetcode java solutions, ever!
