@@ -1,0 +1,20 @@
+public class Test {
+  public void reverseWords(char[] s) {//O(n) & O(1)
+    reverse(s, 0, s.length);
+    
+    for (int i = 0, j = 0; j <= s.length; j++) {
+      if (s[j] == ' ' || j == s.length) {//mid or last char
+        reverse(s, i, j);
+        i = j + 1;
+      }
+    }
+  }
+  
+  private void reverse(char[] s, int start, int end) {//end is exclusive
+    for (int i = 0; i < (end - start) / 2; i++) {
+      char tmp = s[start + i];
+      s[start + i] = s[end - 1 - i];
+      s[end - 1 - i] = tmp;
+    }
+  }
+}
