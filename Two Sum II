@@ -1,0 +1,29 @@
+public class Test {//time O(n*log(n)), space O(1)
+  public int[] twoSum(int[] nums, int target) {
+    for (int i = 0; i < nums.length; i++) {
+      int j = bSearch(nums, target - nums[i], i + 1);
+      if (j != -1) {
+        return new int[] = {j + 1, i + 1};//or i+1, j+1
+      }
+      else {
+        return null;
+      }
+    }
+  }
+  
+  private int bSearch(int[] nums, int key, int start) {
+    int l = start, r = nums.length - 1;
+    
+    while (l < r) {//two-ways partition
+      int mid = (l + r) / 2;
+      if (mid < key) {
+        l = mid + 1;
+      }
+      else {
+        r = mid;
+      }
+    }
+    
+    return (l == r && nums[r] == key) ? l : -1;
+  }
+}
