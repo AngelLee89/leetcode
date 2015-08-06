@@ -12,7 +12,8 @@ public class Test {//time O(n*log(n)), space O(1)
   }
   
   private int bSearch(int[] nums, int key, int start) {
-    int l = start, r = nums.length - 1;
+    int l = start;
+    int r = nums.length - 1;
     
     while (l < r) {//two-ways partition
       int mid = (l + r) / 2;
