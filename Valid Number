@@ -1,0 +1,55 @@
+public class Solution {
+    public boolean isNumber(String s) {
+        int len = s.length();
+        int i = 0, j = len - 1;
+        while (i <= j && Character.isWhitespace(s.charAt(i))) {//<= due to len - 1
+            i++;
+        }
+        if (i > j) {
+            return false;// case : " "
+        }
+        
+        while (j >= i && Character.isWhitespace(s.charAt(j))) {
+            j--;
+        }
+        
+        // skip leading +/-
+        if (s.charAt(i) == '+' || s.charAt(i) == '-') {
+            i++;
+        }
+        boolean num = false; // is a digit
+        boolean dot = false; // is a '.'
+        boolean exp = false; // is a 'e'
+        while (i <= j) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                num = true;
+            }
+            else if (c == '.') {
+                if (dot || exp) {//encounter dot again or encounter EXP
+                    return false;//6e6.5 => false
+                }
+                dot = true;
+            }
+            else if (c == 'e') {
+                if(exp || num == false) {//the 2nd time with same situation
+                    return false;//e9 => false
+                }
+                exp = true;
+                num = false;//rejudge from here: reset
+            }
+            else if (c == '+' || c == '-') {//47e+6
+                if (s.charAt(i - 1) != 'e') {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+            
+            i++;
+        }
+        
+        return num;
+    }
+}
