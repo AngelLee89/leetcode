@@ -1,55 +1,48 @@
-public class Solution {
+public class Solution {//O(n) & O(1)
     public boolean isNumber(String s) {
-        int len = s.length();
-        int i = 0, j = len - 1;
-        while (i <= j && Character.isWhitespace(s.charAt(i))) {//<= due to len - 1
+        int i = 0, n = s.length();
+        boolean isNumeric = false;
+        //part 1
+        while (i < n && s.charAt(i) == ' ') {
             i++;
         }
-        if (i > j) {
-            return false;// case : " "
-        }
         
-        while (j >= i && Character.isWhitespace(s.charAt(j))) {
-            j--;
-        }
-        
-        // skip leading +/-
-        if (s.charAt(i) == '+' || s.charAt(i) == '-') {
+        if (i < n && (s.charAt(i) == '+' || s.charAt(i) == '-')) {//i < n, add ()
             i++;
         }
-        boolean num = false; // is a digit
-        boolean dot = false; // is a '.'
-        boolean exp = false; // is a 'e'
-        while (i <= j) {
-            char c = s.charAt(i);
-            if (Character.isDigit(c)) {
-                num = true;
-            }
-            else if (c == '.') {
-                if (dot || exp) {//encounter dot again or encounter EXP
-                    return false;//6e6.5 => false
-                }
-                dot = true;
-            }
-            else if (c == 'e') {
-                if(exp || num == false) {//the 2nd time with same situation
-                    return false;//e9 => false
-                }
-                exp = true;
-                num = false;//rejudge from here: reset
-            }
-            else if (c == '+' || c == '-') {//47e+6
-                if (s.charAt(i - 1) != 'e') {
-                    return false;
-                }
-            }
-            else {
-                return false;
+        //p2
+        while (i < n && Character.isDigit(s.charAt(i))) {//for the case 3 : outside if()
+            i++;
+            isNumeric = true;
+        }
+        
+        if (i < n && s.charAt(i) == '.') {
+            i++;
+        }
+        //p3
+        while (i < n && Character.isDigit(s.charAt(i))) {//inside or outside above if
+            i++;
+            isNumeric = true;
+        }
+        //p4
+        if (isNumeric && i < n && s.charAt(i) == 'e') {//isNumeric for case : e9
+            i++;
+            isNumeric = false;
+            
+            if (i < n && (s.charAt(i) == '+' || s.charAt(i) == '-')) {//case : 0e
+                i++;
             }
             
+            while (i < n && Character.isDigit(s.charAt(i))) {
+                i++;
+                isNumeric = true;
+            }
+        }
+        //p5
+        while (i < n && s.charAt(i) == ' ') {
             i++;
         }
         
-        return num;
+        return i == n && isNumeric;
     }
 }
