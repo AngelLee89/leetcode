@@ -1,0 +1,68 @@
+public class Solution {
+    public int myAtoi(String str) {//heart: overflow, O(n) & O(1)
+        int maxDiv10 = Integer.MAX_VALUE / 10;
+        int i = 0, sign = 1, n = str.length();
+        
+        while (i < n && str.charAt(i) == ' ') {
+            i++;
+        }
+        
+        if (i < n && str.charAt(i) == '-') {
+            sign = -1;
+            i++;
+        }
+        else if (i < n && str.charAt(i) == '+') {
+            i++;
+        }
+        
+        int num = 0;
+        while (i < n && Character.isDigit(str.charAt(i))) {
+            int cur = str.charAt(i) - '0';
+            if (num > maxDiv10 || (num == maxDiv10 && cur >= 8)) {
+                return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            }//Integer.MAX_VALUE is 2147483647
+            num = num * 10 + cur;
+            i++;
+        }
+        
+        return sign * num;
+        /*
+        if (str == null || str.length() == 0) {
+            return 0;
+        }
+        
+        int i = 0;
+        char sign = '+';
+        str = str.trim();
+        double result = 0;
+        
+        if (str.charAt(i) == '-') {
+            i++;
+            sign = '-';
+        }
+        else if (str.charAt(i) == '+') {
+            i++;
+        }
+        
+        while (i < str.length() && str.charAt(i) >= '0' && str.charAt(i) <= '9') {
+            //if (str.charAt(i) >= '0' && str.charAt(i) <= '9') {
+            result = result * 10 + str.charAt(i) - '0';
+            //}
+            i++;
+        }
+        
+        if (sign == '-') {
+            result = result * -1;
+        }
+        
+        //if (result > Integer.MAX_VALUE) {//"2147483648" > "2147483647"
+        //    return Integer.MAX_VALUE;
+        //}
+        //if (result < Integer.MIN_VALUE) {
+        //    return Integer.MIN_VALUE;
+        //}
+        
+        return (int)result;
+        */
+    }
+}
